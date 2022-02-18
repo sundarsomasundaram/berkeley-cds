@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: sundarsomasundaramberkeleycds 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sundarsomasundaramberkeleycds
+  template:
+    metadata:
+      labels:
+        app: sundarsomasundaramberkeleycds 
+    spec:
+      containers:
+        - name: sundarsomasundaramberkeleycds 
+          image: cdsacrregistry.azurecr.io/sundarsomasundaramberkeleycds
+          ports:
+          - containerPort: 80
