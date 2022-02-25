@@ -33,7 +33,7 @@ com.azure.security.keyvault.secrets.models.SecretProperties"%>
 			String cacheHostname = secretClient.getSecret("REDISCACHEKEY").getValue();
 			*/
 			String cacheHostname = "berkeley-cds.redis.cache.windows.net";
-			String cachekey = "u7T0RnSVffKao1DhtxMxJhYfj0VJZxwt1AzCaJDZpxw=";
+			String cachekey = "2q5Xb3OvHTu8i0tLcAZHtVbIbidtFo9bjAzCaGWqxxw=";
 
 			// Connect to the Azure Cache for Redis over the TLS/SSL port using the key.
 			JedisShardInfo shardInfo = new JedisShardInfo(cacheHostname, 6380, useSsl);
