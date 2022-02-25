@@ -1,2 +1,21 @@
 Github Source Code: https://github.com/sundarsomasundaram/berkeley-cds.git
 Dockerhub Image: https://hub.docker.com/repository/docker/sundardockerdevops/webapp
+
+https://berkeleycdsvault.vault.azure.net/
+
+berkeley-cds - Service Principle
+{
+  "appId": "b8644e7f-0c3b-481d-8609-0945f558def4",
+  "displayName": "berkeley-cds",
+  "password": "E~V8RtPgtVOGwy-JO5oSohkPROdY1hb1rq",
+  "tenant": "952c064a-fa1b-472e-b0a5-8b585a61bcb3"
+}
+
+$AZURE_CLIENT_ID="b8644e7f-0c3b-481d-8609-0945f558def4"
+$AZURE_CLIENT_SECRET="E~V8RtPgtVOGwy-JO5oSohkPROdY1hb1rq"
+$AZURE_TENANT_ID="952c064a-fa1b-472e-b0a5-8b585a61bcb3"
+
+az keyvault set-policy --name berkeleycdsvault --spn $AZURE_CLIENT_ID --secret-permissions backup delete get list set
+
+
+git push https://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@github.com/sundarsomasundaram/berkeley-cds.git/
