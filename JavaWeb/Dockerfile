@@ -5,4 +5,4 @@ RUN ["/usr/local/bin/mvn-entrypoint.sh", "mvn", "verify", "clean", "package", "-
 RUN mvn package
 
 FROM tomcat:8.5.43-jdk8
-COPY /target/JavaWeb.war /usr/local/tomcat/webapps/JavaWeb.war
+COPY /cds/berkeley-cds/JavaWeb/target/JavaWeb-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/JavaWeb.war
