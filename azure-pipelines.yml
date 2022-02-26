@@ -49,7 +49,6 @@ stages:
   variables:
     acrsecret: cdsacrregistry
     acrdevurl: $(containerRegistry)
-
     jobs:
     - deployment: Deploy
       displayName: Deploy to AKS
