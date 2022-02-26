@@ -69,7 +69,7 @@ stages:
               action: 'createSecret'
               namespace: 'default'
               secretType: 'dockerRegistry'
-              secretName: '$(acrsecret)'
+              secretName: 'cdsacrregistry'
               dockerRegistryEndpoint: 'cdsacrregistry'
 
           - task: KubernetesManifest@0
