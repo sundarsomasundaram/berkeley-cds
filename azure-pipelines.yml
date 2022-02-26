@@ -48,7 +48,7 @@ stages:
   dependsOn: Build
   variables:
     acrsecret: cdsacrregistry
-    acrdevurl: 'cdsacrregistry.azurecr.io'
+    acrdevurl: $(containerRegistry)
 
     jobs:
     - deployment: Deploy
