@@ -69,7 +69,7 @@ stages:
               action: 'createSecret'
               namespace: 'default'
               secretType: 'dockerRegistry'
-              secretName: 'cdsacrregistry'
+              secretName: 'berkeley-cds-aks-default'
               dockerRegistryEndpoint: 'cdsacrregistry'
 
           - task: KubernetesManifest@0
