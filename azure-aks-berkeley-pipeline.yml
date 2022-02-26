@@ -9,7 +9,7 @@ resources:
 - repo: self
 
 variables:
-  imageRepo: webapp
+  imageRepo: sampleapp
   tag: '$(Build.BuildId)'
 
 stages:
@@ -24,8 +24,15 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
-        containerRegistry: 'cdsacrregistry'
-        command: buildAndPush
-        dockerfile: '$(Build.SourcesDirectory)/JavaWeb/Dockerfile'
+        containerRegistry: 'K8SExamplesACR'
+        repository: '$(imageRepo)'
+        command: 'buildAndPush'
+        Dockerfile: '$(Build.SourcesDirectory)/app/Dockerfile'
         tags: |
           $(tag)
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Pipeline.Workspace)/s/kubernetes'
+        artifact: 'manifests'
+        publishLocation: 'pipeline'
+        
