@@ -34,7 +34,7 @@ stages:
         command: buildAndPush
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
+        containerRegistry: 'cdsacrregistry'
         tags: |
           $(tag)
     - task: PublishPipelineArtifact@1
