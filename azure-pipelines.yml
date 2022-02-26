@@ -39,7 +39,7 @@ stages:
           $(tag)
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: '$(Pipeline.Workspace)/s/kubernetes'
+        targetPath: '$(Pipeline.Workspace)'
         artifact: 'manifests'
         publishLocation: 'pipeline'
     
