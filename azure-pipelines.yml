@@ -72,3 +72,12 @@ stages:
                 secretType: 'dockerRegistry'
                 secretName: '$(acrsecret)'
                 dockerRegistryEndpoint: 'cdsacrregistry'
+
+            - task: KubernetesManifest@0
+              inputs:
+                action: 'deploy'
+                namespace: 'default'
+                manifests: |
+                  $(Pipeline.Workspace)/manifests/deployment.yml
+                  $(Pipeline.Workspace)/manifests/service.yml
+                imagePullSecrets: '$(acrsecret)'
