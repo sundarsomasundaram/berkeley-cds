@@ -1,5 +1,5 @@
-# Docker
-# Build and push an image to Azure Container Registry
+# Deploy to Azure Kubernetes Service
+# Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
@@ -9,19 +9,22 @@ resources:
 - repo: self
 
 variables:
+
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '906d2f4e-0ca3-41b7-864d-efc25ddfe060'
+  dockerRegistryServiceConnection: '814c7eb1-6751-4b86-8ff5-3ce6494ec7e5'
   imageRepository: 'webapp'
   containerRegistry: 'cdsacrregistry.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/JavaWeb/Dockerfile'
+  dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
+  imagePullSecret: 'cdsacrregistry3695345a-auth'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
+
 stages:
 - stage: Build
-  displayName: Build and push stage
+  displayName: Build stage
   jobs:
   - job: Build
     displayName: Build
@@ -34,49 +37,42 @@ stages:
         command: buildAndPush
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
-        containerRegistry: 'cdsacrregistry'
+        containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-    - task: PublishPipelineArtifact@1
-      inputs:
-        targetPath: '$(Pipeline.Workspace)/s/manifests'
-        artifact: 'manifests'
-        publishLocation: 'pipeline'
-    
+
+    - upload: manifests
+      artifact: manifests
+
 - stage: Deploy
-  displayName: Deploy to Dev
+  displayName: Deploy stage
   dependsOn: Build
-  variables:
-    acrsecret: cdsacrregistry
-    acrdevurl: $(containerRegistry)
+
   jobs:
   - deployment: Deploy
-    displayName: Deploy to AKS
-    environment: 'k8sdev-default'
-    pool: 
-      vmImage: ubuntu-latest
+    displayName: Deploy
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'sundarsomasundaramberkeleycds-1800.default'
     strategy:
       runOnce:
         deploy:
           steps:
-          - task: DownloadPipelineArtifact@2
-            inputs:
-              buildType: 'current'
-              artifactName: 'manifests'
-              targetPath: '$(Pipeline.Workspace)/s/manifests'
           - task: KubernetesManifest@0
+            displayName: Create imagePullSecret
             inputs:
-              action: 'createSecret'
-              namespace: 'default'
-              secretType: 'dockerRegistry'
-              secretName: 'berkeley-cds-aks-default'
-              dockerRegistryEndpoint: 'cdsacrregistry'
+              action: createSecret
+              secretName: $(imagePullSecret)
+              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
 
           - task: KubernetesManifest@0
+            displayName: Deploy to Kubernetes cluster
             inputs:
-              action: 'deploy'
-              namespace: 'default'
+              action: deploy
               manifests: |
                 $(Pipeline.Workspace)/manifests/deployment.yml
                 $(Pipeline.Workspace)/manifests/service.yml
-              imagePullSecrets: 'berkeley-cds-aks-default'
+              imagePullSecrets: |
+                $(imagePullSecret)
+             
+
