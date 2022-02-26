@@ -79,4 +79,4 @@ stages:
               manifests: |
                 $(Pipeline.Workspace)/manifests/deployment.yml
                 $(Pipeline.Workspace)/manifests/service.yml
-              imagePullSecrets: '$(acrsecret)'
+              imagePullSecrets: 'berkeley-cds-aks-default'
