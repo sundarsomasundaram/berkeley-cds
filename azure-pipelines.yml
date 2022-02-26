@@ -47,7 +47,7 @@ stages:
   displayName: Deploy to Dev
   dependsOn: Build
   variables:
-    acrsecret: k8sexamplesacrauth
+    acrsecret: cdsacrregistry
     acrdevurl: 'cdsacrregistry.azurecr.io'
     replicaNo: 2
     jobs:
@@ -71,4 +71,4 @@ stages:
                 namespace: 'default'
                 secretType: 'dockerRegistry'
                 secretName: '$(acrsecret)'
-                dockerRegistryEndpoint: 'K8SExamplesACR'
+                dockerRegistryEndpoint: 'cdsacrregistry'
