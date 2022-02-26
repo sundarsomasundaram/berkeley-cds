@@ -49,7 +49,7 @@ stages:
   variables:
     acrsecret: cdsacrregistry
     acrdevurl: 'cdsacrregistry.azurecr.io'
-    replicaNo: 2
+
     jobs:
     - deployment: Deploy
       displayName: Deploy to AKS
