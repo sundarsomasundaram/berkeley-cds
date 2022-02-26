@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: sundarsomasundaramberkeleycds 
-          image: cdsacrregistry.azurecr.io/sundarsomasundaramberkeleycds
+          image: cdsacrregistry.azurecr.io/webapp:50
           ports:
           - containerPort: 80
