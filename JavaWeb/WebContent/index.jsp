@@ -18,7 +18,7 @@ com.azure.security.keyvault.secrets.models.SecretProperties"%>
 <body>
 	<form>
 		<fieldset style="width: 20%; background-color: #e6ffe6;">
-			<legend>Count visitor</legend>
+			<legend>visitor's count</legend>
 			<%
 			boolean useSsl = true;
 			//String cacheHostname = System.getenv("REDISCACHEHOSTNAME");
@@ -33,7 +33,7 @@ com.azure.security.keyvault.secrets.models.SecretProperties"%>
 			String cacheHostname = secretClient.getSecret("REDISCACHEKEY").getValue();
 			*/
 			String cacheHostname = "berkeley-cds.redis.cache.windows.net";
-			String cachekey = "2q5Xb3OvHTu8i0tLcAZHtVbIbidtFo9bjAzCaGWqxxw=";
+			String cachekey = "cym61ksSBUPyAhg2T00CxgoXL838tz6hvAzCaBQzpFI=";
 
 			// Connect to the Azure Cache for Redis over the TLS/SSL port using the key.
 			JedisShardInfo shardInfo = new JedisShardInfo(cacheHostname, 6380, useSsl);
@@ -48,7 +48,7 @@ com.azure.security.keyvault.secrets.models.SecretProperties"%>
 			jedis.close();
 			%>
 			<p>
-				Visitor Count:
+				And you are Number:
 				<%=result%>.
 			</p>
 		</fieldset>
